@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Hello</title>
+</head>
+<body>
+	<form method="POST" action="productlist">
+		<input type="text" name="name" /> <input type="submit" value="実行！" />
+		<th:block th:if="${name} and ''!=${name}">
+			<br />
+			<br /> Hello [[${name}]]<br />
+			<p th:text="${message}"></p>
+		</th:block>
+	</form>
+
+	<dl>
+		<th:block th:each="item: ${items}">
+			<dt>
+				<span class="item" th:text="${item.itemId} + ${item.name} + ${item.price}"></span>
+			</dt>
+		</th:block>
+	</dl>
+
+</body>
+</html>
