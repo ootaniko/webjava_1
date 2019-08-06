@@ -2,25 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Hello</title>
+<title>SuperShoppingSite!</title>
 </head>
 <body>
-	<form method="POST" action="productlist">
-		<input type="text" name="name" /> <input type="submit" value="実行！" />
-		<th:block th:if="${name} and ''!=${name}">
-			<br />
-			<br /> Hello [[${name}]]<br />
-			<p th:text="${message}"></p>
-		</th:block>
-	</form>
-
+	<h1>
+		<b>スーパー果物ショッピングサイト</b>
+	</h1>
+	<b>＊商品一覧＊</b><br>
+	商品番号／商品名／価格(円)
 	<dl>
 		<th:block th:each="item: ${items}">
 			<dt>
-				<span class="item" th:text="${item.itemId} + ${item.name} + ${item.price}"></span>
+				<span class="item"
+					th:text="${item.itemId} + ／ + ${item.name}  + ／ + ${item.price}"></span>
 			</dt>
 		</th:block>
 	</dl>
+	<br>
+	<b>＊注文入力フォーム＊</b>
+	<br>
+	<form action="#" th:action="@{/productlist}" th:object="${listForm}"
+		method="POST">
+		<p>
+			商品番号: <input type="text" th:field="*{itemId}" />
+			<em th:if="${#fields.hasErrors('itemId')}" th:errors="*{itemId}">ItemId	Error</em>
+		</p>
+		<p>
+			購入個数: <input type="text" th:field="*{num}" />
+			<em th:if="${#fields.hasErrors('num')}" th:errors="*{num}">Num Error</em>
+		</p>
+		<p>
+			<input type="submit" value="注文" /> <input type="reset" value="リセット" />
+	</form>
+	<br>
+	<b>＊注文リスト＊</b>
+	<br>
+	商品番号／購入個数
+	<dl>
+		<th:block th:each="order: ${orderList}">
+			<dt>
+				<span class="Order"
+					th:text="${order.itemId} + ／ + ${order.num}"></span>
+			</dt>
+		</th:block>
+	</dl>
+	<br>
+	<b>＊合計金額＊</b>
+	<br>
+	<span th:text="${total} + 円"></span>
 
 </body>
 </html>
