@@ -24,11 +24,12 @@
 	<form action="#" th:action="@{/productlist}" th:object="${listForm}"
 		method="POST">
 		<p>
-			商品番号: <input type="text" th:field="*{itemId}" />
-			<em th:if="${#fields.hasErrors('itemId')}" th:errors="*{itemId}">ItemId	Error</em>
+			商品番号: <select th:field="*{itemId}">
+				<option th:each="item: ${items}" th:value="${item.itemId}" th:text="${item.itemId}">singleSelect</option>
+			</select>
 		</p>
 		<p>
-			購入個数: <input type="text" th:field="*{num}" />
+			購入個数: <input type="number" min="0" th:field="*{num}" />
 			<em th:if="${#fields.hasErrors('num')}" th:errors="*{num}">Num Error</em>
 		</p>
 		<p>
